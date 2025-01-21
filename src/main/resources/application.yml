@@ -1,0 +1,16 @@
+spring.application.name: spring-batch
+spring:
+  datasource:
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      catalog: batch
+  jpa:
+    show-sql: true
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: embedded
