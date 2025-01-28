@@ -1,16 +1,31 @@
 spring.application.name: spring-batch
 spring:
+  config:
+    import:
+      - optional:file:.env[.properties]
   datasource:
     url: ${MYSQL_URL}
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
+      connection-timeout: 5000
+      idle-timeout: 60000
+      maximum-pool-size: 10
+      minimum-idle: 3
+      connection-test-query: SELECT 0
       catalog: batch
   jpa:
     show-sql: true
+    open-in-view: off
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+      ddl-auto: update
+    properties:
+      dialect: org.hibernate.dialect.MySQL8Dialect
   batch:
     job:
-      enabled: false
+      enabled: true
     jdbc:
-      initialize-schema: embedded
+      initialize-schema: always
