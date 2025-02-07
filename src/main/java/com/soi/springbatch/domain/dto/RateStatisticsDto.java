@@ -2,6 +2,7 @@ package com.soi.springbatch.domain.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.soi.springbatch.domain.entity.RateStatistics;
+import lombok.Builder;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.time.ZonedDateTime;
  * DTO for {@link RateStatistics}
  */
 @Value
+@Builder
 public class RateStatisticsDto implements Serializable {
     Long product;
     Double average;

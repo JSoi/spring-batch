@@ -26,6 +26,6 @@ spring:
       dialect: org.hibernate.dialect.MySQL8Dialect
   batch:
     job:
-      enabled: true
+      enabled: false
     jdbc:
       initialize-schema: always

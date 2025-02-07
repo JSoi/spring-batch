@@ -27,9 +27,9 @@ public class Rate {
     private Product product;
 
     @Column
-    @Size(min = 1, max = 5)
     private Integer value = 0;
 
+    @Column
     ZonedDateTime createdAt;
 
     @PrePersist
