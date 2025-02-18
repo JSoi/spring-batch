@@ -29,3 +29,7 @@ spring:
       enabled: false
     jdbc:
       initialize-schema: always
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
