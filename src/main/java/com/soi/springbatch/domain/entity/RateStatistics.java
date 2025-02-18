@@ -62,4 +62,11 @@ public class RateStatistics {
                 .endTime(rateStatisticsDto.getEndTime())
                 .build();
     }
+
+    public void merge(RateStatisticsDto m) {
+        this.average = (m.getAverage() * m.getCount() + this.average * this.count) / (m.getCount() + this.count);
+        this.startTime = this.startTime.compareTo(m.getStartTime()) <= 0 ? this.startTime : m.getStartTime();
+        this.endTime = this.endTime.compareTo(m.getEndTime()) > 0 ? this.endTime : m.getEndTime();
+        this.count = this.count + m.getCount();
+    }
 }

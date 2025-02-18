@@ -1,6 +1,7 @@
 package com.soi.springbatch.config;
 
 import com.soi.springbatch.domain.dto.RateDto;
+import com.soi.springbatch.listener.DailyReviewCleanUpListener;
 import com.soi.springbatch.listener.DailyReviewListener;
 import com.soi.springbatch.processor.DailyReviewProcessor;
 import com.soi.springbatch.processor.ReviewBatchDto;
@@ -24,6 +25,7 @@ public class ReviewStatJobConfig {
     private final DailyReviewReader dailyReviewReader;
     private final DailyReviewProcessor dailyReviewProcessor;
     private final DailyReviewListener dailyReviewListener;
+    private final DailyReviewCleanUpListener dailyReviewCleanUpListener;
     private final DailyReviewWriter dailyReviewWriter;
 
     @Bean
@@ -40,6 +42,7 @@ public class ReviewStatJobConfig {
                 .reader(dailyReviewReader.getReader())
                 .processor(dailyReviewProcessor)
                 .writer(dailyReviewWriter)
+                .listener(dailyReviewCleanUpListener)
                 .listener(dailyReviewListener)
                 .build();
     }

@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +33,12 @@ public class RateBatchService {
     }
 
     @Transactional
-    public <T extends  RateStatisticsDto> void saveDailyStatistics(Collection<T> rateStatisticsDto) {
-        rateStatisticsRepository.saveAll(rateStatisticsDto.stream().map(RateStatistics::of).toList());
+    public Optional<RateStatistics> gateRateStatisticsOfProduct(ZonedDateTime targetDate, Long productId) {
+        return rateStatisticsRepository.findRateStatisticsByProductAndStartTimeGreaterThanEqual(productId, targetDate.truncatedTo(ChronoUnit.DAYS));
+    }
+
+    @Transactional
+    public <T extends  RateStatisticsDto> void saveDailyStatistics(T ... rateStatisticsDto) {
+        rateStatisticsRepository.saveAll(Arrays.stream(rateStatisticsDto).map(RateStatistics::of).toList());
     }
 }

@@ -1,6 +1,7 @@
 package com.soi.springbatch.writer;
 
 import com.soi.springbatch.domain.dto.RateStatisticsDto;
+import com.soi.springbatch.domain.entity.RateStatistics;
 import com.soi.springbatch.processor.ReviewBatchDto;
 import com.soi.springbatch.service.RateBatchService;
 import lombok.RequiredArgsConstructor;
@@ -8,9 +9,7 @@ import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -37,6 +36,10 @@ public class DailyReviewWriter implements ItemWriter<ReviewBatchDto.ReviewCount>
                     .endTime(statisticsList.get(statisticsList.size() - 1).getCreatedAt())
                     .build();
         }).toList();
-        rateBatchService.saveDailyStatistics(saveList);  // DB에 저장 또는 다른 처리
+        for (RateStatisticsDto rateStatisticsDto : saveList) {
+             rateBatchService.gateRateStatisticsOfProduct(rateStatisticsDto.getStartTime(), rateStatisticsDto.getProduct())
+                     .ifPresentOrElse(a->a.merge(rateStatisticsDto), ()-> rateBatchService.saveDailyStatistics(rateStatisticsDto));
+        }
+//        rateBatchService.gateRateStatisticsOfProduct()
     }
 }
