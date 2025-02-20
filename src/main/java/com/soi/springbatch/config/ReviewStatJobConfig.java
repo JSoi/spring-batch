@@ -3,6 +3,7 @@ package com.soi.springbatch.config;
 import com.soi.springbatch.domain.dto.RateDto;
 import com.soi.springbatch.listener.DailyReviewCleanUpListener;
 import com.soi.springbatch.listener.DailyReviewListener;
+import com.soi.springbatch.listener.DailyReviewWriterListener;
 import com.soi.springbatch.processor.DailyReviewProcessor;
 import com.soi.springbatch.processor.ReviewBatchDto;
 import com.soi.springbatch.reader.DailyReviewReader;
@@ -27,6 +28,7 @@ public class ReviewStatJobConfig {
     private final DailyReviewListener dailyReviewListener;
     private final DailyReviewCleanUpListener dailyReviewCleanUpListener;
     private final DailyReviewWriter dailyReviewWriter;
+    private final DailyReviewWriterListener dailyReviewWriterListener;
 
     @Bean
     public Job reviewStatisticsJob(JobRepository jobRepository, Step reviewStatStep) {
@@ -44,6 +46,7 @@ public class ReviewStatJobConfig {
                 .writer(dailyReviewWriter)
                 .listener(dailyReviewCleanUpListener)
                 .listener(dailyReviewListener)
+                .listener(dailyReviewWriterListener)
                 .build();
     }
 }
