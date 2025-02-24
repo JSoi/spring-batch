@@ -41,7 +41,7 @@ public abstract class CustomWriterListener<T> implements ItemWriteListener<T> {
 
     @Override
     public void onWriteError(Exception exception, Chunk items) {
-        log.error("error {}", this.jobName);
+        log.error("on write error {}", this.jobName);
         ItemWriteListener.super.onWriteError(exception, items);
     }
 

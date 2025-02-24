@@ -1,7 +1,7 @@
 package com.soi.springbatch.writer;
 
 import com.soi.springbatch.domain.dto.RateStatisticsDto;
-import com.soi.springbatch.domain.entity.RateStatistics;
+import com.soi.springbatch.exception.SkippableException;
 import com.soi.springbatch.processor.ReviewBatchDto;
 import com.soi.springbatch.service.RateBatchService;
 import lombok.RequiredArgsConstructor;
