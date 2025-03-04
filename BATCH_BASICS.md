@@ -70,21 +70,61 @@ Job과 JobInstance는 마치 **클래스와 인스턴스**의 관계와 유사�
 
 
 
+### JobExecution
+
+job를 실행하기 위한 하나의 접근 시도를 의미한다.
+
+만약 execution이 실패한다면 jobinstance의 완료가 보장되지 않는다.
+
+
+
 ### Step
+
+job을 독립적이고 순차적인 단계로 구성할 수 있도록 단계
+
+`Job : Step = 1 : N` 의 관계를 갖는다.
+
+
+
+### StepExecution
+
+step을 수행하기 위한 하나의 시도. jobExecution과 유사
 
 
 
 ### ItemReader
 
+step 내에서 입력을 회수하기 위한 추상 클래스
+
+만약 더이상 읽어들일 input이 없다면, null을 반환하도록 한다.
+
+```java
+public interface ItemReader<T> {
+    T read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException;
+}
+```
+
 
 
 ### ItemWriter
+
+step에서 출력을 추상화한 클래스
+
+하나의 배치, 혹은 청크를 단위로 가진다.
+
+```java
+public interface ItemWriter<T> {
+    void write(Chunk<? extends T> items) throws Exception;
+}
+```
 
 
 
 ### Processor
 
+read-write 사이 단계에서 item들을 가공하는 역할
 
+만약 write하고 싶은 데이터가 아니라면, null을 반환하도록 하는 방식으로 저장할 데이터를 스킵한다.
 
 
 
